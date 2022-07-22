@@ -13,11 +13,15 @@ class Car {
 
         this.angle = 0;
 
+
+        this.sensor = new Sensor(this);
+
         this.controls = new Controls();
     }
 
-    update() {
+    update(roadBoarders) {
         this.#move();
+        this.sensor.update(roadBoarders);
     }
     #move() {
         if (this.controls.forward) { this.speed += this.acceleration; }
@@ -54,9 +58,13 @@ class Car {
             -this.width / 2,
             -this.height / 2,
             this.width,
-            this.height,
+            this.height
         );
         ctx.fill();
         ctx.restore();
+        this.sensor.draw(ctx);
     }
 }
+
+
+
